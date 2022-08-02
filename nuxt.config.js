@@ -82,8 +82,7 @@ export default {
   plugins: [
     { src: '~/plugins/gtag.js', mode: 'client' },
     { src: '~/plugins/tiptapvuetify.js', mode: 'client' },
-    { src: '~/plugins/regex.js' },
-    { src: '~/plugins/vuedraggable.js', mode: 'client' }
+    { src: '~/plugins/regex.js' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
