@@ -152,17 +152,6 @@
           <v-list-item-title>{{ $t('titles.vouchers') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item
-        link
-        :to="`/panel/shop/${$route.params.shopid}/temp`"
-      >
-        <v-list-item-icon>
-          <v-icon>mdi-bullhorn</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>{{ $t('titles.temp_announcement') }}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
     </v-navigation-drawer>
 
     <v-app-bar

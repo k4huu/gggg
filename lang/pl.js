@@ -206,7 +206,8 @@ export default {
     buy_service_4: 'Realizacja',
     main_page: 'Strona główna',
     modules: 'Moduły',
-    voucher_success: 'Pomyślnie użyto vouchera'
+    voucher_success: 'Pomyślnie użyto vouchera',
+    top_customer_widget: 'Widżet top-customer'
   },
 
   responses: {
