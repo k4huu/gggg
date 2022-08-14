@@ -135,7 +135,8 @@ export default {
     module_enabled: 'Moduł włączony',
     choose_payment_method: 'Wybierz sposób płatności',
     commands_in_queue: 'Komendy w kolejce',
-    plugin_secret: 'Klucz do pluginu'
+    plugin_secret: 'Klucz do pluginu',
+    search: 'Szukaj'
   },
 
   formats: {
