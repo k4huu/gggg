@@ -110,6 +110,7 @@
         :headers="headers"
         :items="vouchersList"
         :search="search"
+        show-select
       />
     </v-card>
   </div>
@@ -137,7 +138,7 @@ export default {
         { text: 'Kod', value: 'code' },
         { text: 'Stworzony', value: 'start' },
         { text: 'Wygasa', value: 'end' },
-        { text: 'Usługa', value: 'service' }
+        { text: 'Opis', value: 'service' }
       ],
       search: '',
       valid: false,
@@ -183,7 +184,7 @@ export default {
       for (const i in this.vouchers) {
         result.push({
           code: i,
-          service: this.vouchers[i].service,
+          service: this.shop.services[this.vouchers[i].service].name,
           start: this.vouchers[i].start,
           end: this.vouchers[i].end ? this.vouchers[i].end : this.vouchers[i].start
         })
