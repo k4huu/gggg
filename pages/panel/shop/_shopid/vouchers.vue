@@ -97,6 +97,9 @@
     <v-card class="pt-1 mt-5">
       <v-card-title>
         {{ $t("titles.vouchers") }}
+        <v-btn v-if="selected.length>0" class="ml-3" color="error" @click="del">
+          {{ $t("actions.remove_selected") }}
+        </v-btn>
         <v-spacer />
         <v-text-field
           v-model="search"
@@ -107,6 +110,8 @@
         />
       </v-card-title>
       <v-data-table
+        v-model="selected"
+        item-key="code"
         :headers="headers"
         :items="vouchersList"
         :search="search"
@@ -134,6 +139,7 @@ export default {
   },
   data () {
     return {
+      selected: [],
       headers: [
         { text: 'Kod', value: 'code' },
         { text: 'Stworzony', value: 'start' },
@@ -192,11 +198,6 @@ export default {
       return result
     }
   },
-  watch: {
-    vouchersList () {
-      console.log(this.vouchersList)
-    }
-  },
   methods: {
     download (text, filename) {
       const blob = new Blob([text], { type: 'text/plain' })
@@ -207,7 +208,10 @@ export default {
       a.click()
     },
     del () {
-      this.$fire.database.ref().child(`vouchers/${this.$route.params.shopid}`).remove()
+      for (const i in this.selected) {
+        this.$fire.database.ref().child(`vouchers/${this.$route.params.shopid}/${this.selected[i].code}`).remove()
+      }
+      this.selected = []
     },
     create () {
       this.$refs.form.validate()

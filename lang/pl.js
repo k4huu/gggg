@@ -67,7 +67,8 @@ export default {
     go_back: 'Cofnij się',
     generate_new_key: 'Wygeneruj nowy klucz',
     send_test_message: 'Wyślij testową wiadomość',
-    reset_stack: 'Zresetuj stos komend'
+    reset_stack: 'Zresetuj stos komend',
+    remove_selected: 'Usuń zaznaczone'
   },
 
   fields: {
