@@ -210,7 +210,8 @@ export default {
     main_page: 'Strona główna',
     modules: 'Moduły',
     voucher_success: 'Pomyślnie użyto vouchera',
-    top_customer_widget: 'Widżet top-customer'
+    top_customer_widget: 'Widżet top-customer',
+    transactions: 'Transakcje'
   },
 
   responses: {

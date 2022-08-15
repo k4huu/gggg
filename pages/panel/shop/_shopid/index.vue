@@ -15,6 +15,25 @@
         </v-alert>
       </v-col>
     </v-row>
+    <v-card class="pt-1 mt-5">
+      <v-card-title>
+        {{ $t("titles.transactions") }}
+        <v-spacer />
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          :label="$t('fields.search')"
+          single-line
+          hide-details
+        />
+      </v-card-title>
+      <v-data-table
+        item-key="code"
+        :headers="headers"
+        :items="transactions"
+        :search="search"
+      />
+    </v-card>
   </div>
 </template>
 <script>
@@ -32,11 +51,31 @@ export default {
     }
   },
   data () {
-    return { }
+    return {
+      search: '',
+      headers: [
+        { text: 'Id', value: 'id' },
+        { text: 'Kupujący', value: 'nick' },
+        { text: 'Brama', value: 'type' }
+      ]
+    }
   },
   head () {
     return {
       title: this.$t('titles.dashboard')
+    }
+  },
+  computed: {
+    transactions () {
+      const result = []
+      for (const i in this.shop.history) {
+        result.push({
+          id: i,
+          nick: this.shop.history[i].nick,
+          type: this.shop.history[i].type
+        })
+      }
+      return result
     }
   }
 }
