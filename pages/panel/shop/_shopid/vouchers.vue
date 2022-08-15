@@ -144,7 +144,8 @@ export default {
         { text: 'Kod', value: 'code' },
         { text: 'Stworzony', value: 'start' },
         { text: 'Wygasa', value: 'end' },
-        { text: 'Nazwa usługi', value: 'service' }
+        { text: 'Nazwa usługi', value: 'service' },
+        { text: 'Transakcja', value: 'transaction' }
       ],
       search: '',
       valid: false,
@@ -192,7 +193,8 @@ export default {
           code: i,
           service: this.shop.services[this.vouchers[i].service].name,
           start: this.vouchers[i].start,
-          end: this.vouchers[i].end ? this.vouchers[i].end : this.vouchers[i].start
+          end: this.vouchers[i].end ? this.vouchers[i].end : this.vouchers[i].start,
+          transaction: this.vouchers[i].transaction ? this.vouchers[i].transaction : 'Niewykorzystany'
         })
       }
       return result
