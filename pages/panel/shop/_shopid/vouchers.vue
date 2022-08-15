@@ -87,8 +87,14 @@
       <v-card-actions>
         <v-spacer />
         <v-btn
-          color="primary"
+          color="accent"
           @click="create"
+        >
+          {{ $t('actions.create') }}
+        </v-btn>
+        <v-btn
+          color="primary"
+          @click="createAndDownload"
         >
           {{ $t('actions.create_and_download') }}
         </v-btn>
@@ -215,7 +221,7 @@ export default {
       }
       this.selected = []
     },
-    create () {
+    createAndDownload () {
       this.$refs.form.validate()
       if (this.valid) {
         const { date, service, amount } = this
@@ -234,6 +240,25 @@ export default {
         }
         const result = codes.join('\n')
         this.download(result, `vouchers-${service}.txt`)
+        this.amount = 0
+        this.service = ''
+      }
+    },
+    create () {
+      this.$refs.form.validate()
+      if (this.valid) {
+        const { date, service, amount } = this
+        const voucher = {
+          service,
+          start: date[0]
+        }
+        if (date[1]) {
+          voucher.end = date[1]
+        }
+        for (let i = 0; i < amount; i++) {
+          const code = Math.random().toString(36).replace('0.', '')
+          this.$fire.database.ref().child(`vouchers/${this.$route.params.shopid}/${code}`).set(voucher)
+        }
         this.amount = 0
         this.service = ''
       }
