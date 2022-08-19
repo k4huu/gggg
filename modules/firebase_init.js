@@ -8,19 +8,26 @@ async function getToken (serviceAccount) {
     'https://www.googleapis.com/auth/firebase'
   ]
   var jwtClient = new google.auth.JWT(serviceAccount.client_email, null, serviceAccount.private_key, scopes)
-  return await new Promise((resolve, reject) => {
-    jwtClient.authorize(function (error, tokens) {
-      if (error) {
-        console.log('Error making request to generate access token:', error)
-        reject()
-      } else if (tokens.access_token === null) {
-        console.log('Provided service account does not have permission to generate access tokens')
-        reject()
-      } else {
-        resolve(tokens.access_token)
+  return jwtClient.authorize().then((tokens) => tokens.access_token)
+}
+
+async function enableEmailProvider (projectId, token) {
+  await fetch(`https://identitytoolkit.googleapis.com/admin/v2/projects/${projectId}/config?updateMask=signIn.email.enabled,signIn.email.passwordRequired&alt=json`, {
+    method: 'PATCH',
+    body: JSON.stringify({
+      'signIn': {
+        'email': {
+          'enabled': true,
+          'passwordRequired': true
+        }
       }
-    })
+    }),
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
   })
+  console.log("Email sign in enabled")
 }
 
 async function getDefaultWebAppConfig (projectId, token) {
@@ -64,7 +71,7 @@ async function updateFirebaseRules (databaseURL, token, rules) {
   })).json()
   if (json.status === 'ok') {
     console.log('Firebase rules updated')
-  }else{
+  } else {
     console.error('Could not update firebase rules')
   }
 }
@@ -73,15 +80,15 @@ export default async function () {
   try {
     const serviceAccount = JSON.parse(process.env.FIREBASE_CONFIG)
     const token = await getToken(serviceAccount)
+    await enableEmailProvider(serviceAccount.project_id, token)
     const config = await getDefaultWebAppConfig(serviceAccount.project_id, token)
-    const { databaseURL } = config
     let rules
 	  if (process.env.OWNER_ID) {
 	    rules = fs.readFileSync('./rules/one_owner_firebase.rules.json', 'utf-8').replace(/OWNER_ID/g, process.env.OWNER_ID)
 	  } else {
 	    rules = fs.readFileSync('./rules/firebase.rules.json', 'utf-8')
 	  }
-    await updateFirebaseRules(databaseURL, token, rules)
+    await updateFirebaseRules(config.databaseURL, token, rules)
     this.options.firebase = {config}
   } catch (e) {
     console.error('The keys are misconfigured in the FIREBASE_CONFIG environment variable')

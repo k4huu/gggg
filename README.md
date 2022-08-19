@@ -49,9 +49,6 @@ Aby itemszop działał prawidłowo niezbędne jest zainstalowanie pluginu na ser
 
 ### 1. Konfiguracja bazy firebase
 
-- Włącz logowanie emailem i hasłem
-	- Kliknij `Build > Authentication > Sign-in method > Native providers > Email/Password`
-	- Następnie kliknij `Enable` przy polu `Email/Password` i kliknij `Save`
 - Utwórz konto serwisowe w bazie
 	- Kliknij `ikonkę koła zębatego > Project Settings > Service accounts > Create service account > Generate new private key`
 	- Zapisz plik `serviceAccountKey.json` na swoim komputerze
