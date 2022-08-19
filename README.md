@@ -46,27 +46,12 @@ Aby itemszop działał prawidłowo niezbędne jest zainstalowanie pluginu na ser
 
 > **_Ważne:_**  Pamiętaj, że nie potrzebujesz stawiać własnego sklepu. Możesz po prostu skorzystać z modelu SaaS.
 
-[Tutorial instalacji itemszopu na cloudflare](https://streamable.com/wacai0)
 
 ### 1. Konfiguracja bazy firebase
 
 - Włącz logowanie emailem i hasłem
 	- Kliknij `Build > Authentication > Sign-in method > Native providers > Email/Password`
 	- Następnie kliknij `Enable` przy polu `Email/Password` i kliknij `Save`
-- Dodaj firebase to aplikacji webowej
-	- Kliknij `Project Overview`, następnie Ikonkę ze znakiem `</>`
-	- Otrzymasz wtedy kod node.js, z którego zapisz sobie tą część:
-```js
-{
-	apiKey: "XXXXXXXXX",
-	authDomain: "XXXXXXXXX",
-	databaseURL: "XXXXXXXXX",
-	projectId: "XXXXXXXXX",
-	storageBucket: "XXXXXXXXX",
-	messagingSenderId: "XXXXXXXXX",
-	appId: "XXXXXXXXX"
-}
-```
 - Utwórz konto serwisowe w bazie
 	- Kliknij `ikonkę koła zębatego > Project Settings > Service accounts > Create service account > Generate new private key`
 	- Zapisz plik `serviceAccountKey.json` na swoim komputerze
@@ -85,9 +70,7 @@ Aby itemszop działał prawidłowo niezbędne jest zainstalowanie pluginu na ser
 }
 ```
 
-- Tworzenie zmiennej FIREBASE_CONFIG
-	- Automatyczny generator (opcja 1): https://itemszop.tk/firebase_config
-	- Javascriptowy generator (opcja 2) `misc/env_generator.js`
+- Zapisz zawartość pliku serviceAccountKey.json w jednej linijce jako FIREBASE_CONFIG
 
 ### 2. Przygotowanie sklepu
 
